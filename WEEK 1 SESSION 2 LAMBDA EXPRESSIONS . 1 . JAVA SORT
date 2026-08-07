@@ -1,0 +1,58 @@
+import java.io.*;
+import java.util.*;
+
+class Student {
+    private int id;
+    private String fname;
+    private double cgpa;
+
+    Student(int id, String fname, double cgpa) {
+        super();
+        this.id = id;
+        this.fname = fname;
+        this.cgpa = cgpa;
+    }
+
+    int getID() { return id; }
+    String getFname() { return fname; }
+    double getCgpa() { return cgpa; }
+}
+
+class Checker implements Comparator<Student> {
+    public int compare(Student a, Student b) {
+        // 1. CGPA descending
+        if (a.getCgpa() != b.getCgpa()) {
+            return Double.compare(b.getCgpa(), a.getCgpa());
+        }
+        // 2. First name ascending
+        int nameCompare = a.getFname().compareTo(b.getFname());
+        if (nameCompare != 0) {
+            return nameCompare;
+        }
+        // 3. ID ascending
+        return Integer.compare(a.getID(), b.getID());
+    }
+}
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner in = new Scanner(System.in);
+        int testCases = Integer.parseInt(in.nextLine());
+
+        List<Student> studentList = new ArrayList<>();
+        for (int i = 0; i < testCases; i++) {
+            String[] parts = in.nextLine().split(" ");
+            int id = Integer.parseInt(parts[0]);
+            String fname = parts[1];
+            double cgpa = Double.parseDouble(parts[2]);
+            Student st = new Student(id, fname, cgpa);
+            studentList.add(st);
+        }
+
+        Collections.sort(studentList, new Checker());
+
+        for (Student st : studentList) {
+            System.out.println(st.getFname());
+        }
+    }
+}

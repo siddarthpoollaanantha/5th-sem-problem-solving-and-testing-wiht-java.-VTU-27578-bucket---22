@@ -1,0 +1,54 @@
+import java.io.*;
+import java.util.*;
+
+interface PerformOperation {
+    String getResult(int x);
+}
+
+public class Solution {
+
+    // Returns "ODD" or "EVEN"
+    public static PerformOperation isOdd() {
+        return x -> (x % 2 != 0) ? "ODD" : "EVEN";
+    }
+
+    // Returns "PRIME" or "COMPOSITE"
+    public static PerformOperation isPrime() {
+        return x -> {
+            if (x < 2) return "COMPOSITE";
+            for (int i = 2; i <= Math.sqrt(x); i++) {
+                if (x % i == 0) return "COMPOSITE";
+            }
+            return "PRIME";
+        };
+    }
+
+    // Returns "PALINDROME" or "NOT PALINDROME"
+    public static PerformOperation isPalindrome() {
+        return x -> {
+            String s = String.valueOf(x);
+            String reversed = new StringBuilder(s).reverse().toString();
+            return s.equals(reversed) ? "PALINDROME" : "NOT PALINDROME";
+        };
+    }
+
+    // --- Locked stub code (for reference / testing) ---
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int T = scan.nextInt();
+        while (T-- > 0) {
+            int type = scan.nextInt();
+            int x = scan.nextInt();
+
+            PerformOperation op = null;
+            switch (type) {
+                case 1: op = isOdd(); break;
+                case 2: op = isPrime(); break;
+                case 3: op = isPalindrome(); break;
+            }
+
+            System.out.println(op.getResult(x));
+        }
+        scan.close();
+    }
+}

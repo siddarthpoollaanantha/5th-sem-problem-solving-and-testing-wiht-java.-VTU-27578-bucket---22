@@ -1,0 +1,34 @@
+public class MaxSumCircularSubarray {
+    public static void main(String[] args) {
+        int[] nums = {5, -3, 5};
+
+        int result = maxSubarraySumCircular(nums);
+
+        System.out.println(result);
+    }
+
+    public static int maxSubarraySumCircular(int[] nums) {
+        int totalSum = 0;
+        int currMax = 0, maxSum = nums[0];
+        int currMin = 0, minSum = nums[0];
+
+        for (int num : nums) {
+            // Kadane's for max subarray
+            currMax = Math.max(currMax + num, num);
+            maxSum = Math.max(maxSum, currMax);
+
+            // Kadane's for min subarray
+            currMin = Math.min(currMin + num, num);
+            minSum = Math.min(minSum, currMin);
+
+            totalSum += num;
+        }
+
+        // If all numbers are negative, maxSum holds the answer (best single element)
+        if (maxSum < 0) {
+            return maxSum;
+        }
+
+        return Math.max(maxSum, totalSum - minSum);
+    }
+}

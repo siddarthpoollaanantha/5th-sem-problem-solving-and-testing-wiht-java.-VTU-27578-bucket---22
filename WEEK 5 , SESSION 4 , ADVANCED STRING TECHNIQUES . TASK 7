@@ -1,0 +1,31 @@
+import java.util.HashMap;
+
+public class LongestSubstring {
+    public static void main(String[] args) {
+        String s = "abcabcbb";
+
+        int result = lengthOfLongestSubstring(s);
+
+        System.out.println(result);
+    }
+
+    public static int lengthOfLongestSubstring(String s) {
+        HashMap<Character, Integer> lastSeen = new HashMap<>();
+        int maxLength = 0;
+        int windowStart = 0;
+
+        for (int windowEnd = 0; windowEnd < s.length(); windowEnd++) {
+            char currentChar = s.charAt(windowEnd);
+
+            if (lastSeen.containsKey(currentChar) && lastSeen.get(currentChar) >= windowStart) {
+                windowStart = lastSeen.get(currentChar) + 1;
+            }
+
+            lastSeen.put(currentChar, windowEnd);
+
+            maxLength = Math.max(maxLength, windowEnd - windowStart + 1);
+        }
+
+        return maxLength;
+    }
+}

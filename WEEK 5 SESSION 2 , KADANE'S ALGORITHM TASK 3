@@ -1,0 +1,41 @@
+public class MaximumSubarray {
+    public static void main(String[] args) {
+        int[] arr = {-2, -3, -1, -4, -6};
+
+        int[] result = maxSubarray(arr);
+
+        System.out.println(result[0] + " " + result[1]);
+    }
+
+    public static int[] maxSubarray(int[] arr) {
+        // --- Max Subarray Sum (Kadane's Algorithm) ---
+        int maxSubarraySum = arr[0];
+        int currentSum = arr[0];
+
+        for (int i = 1; i < arr.length; i++) {
+            currentSum = Math.max(arr[i], currentSum + arr[i]);
+            maxSubarraySum = Math.max(maxSubarraySum, currentSum);
+        }
+
+        // --- Max Subsequence Sum (sum of all positives, or largest element if all negative) ---
+        int maxSubsequenceSum = 0;
+        boolean hasPositive = false;
+        int maxElement = arr[0];
+
+        for (int num : arr) {
+            if (num > 0) {
+                maxSubsequenceSum += num;
+                hasPositive = true;
+            }
+            if (num > maxElement) {
+                maxElement = num;
+            }
+        }
+
+        if (!hasPositive) {
+            maxSubsequenceSum = maxElement;
+        }
+
+        return new int[]{maxSubarraySum, maxSubsequenceSum};
+    }
+}

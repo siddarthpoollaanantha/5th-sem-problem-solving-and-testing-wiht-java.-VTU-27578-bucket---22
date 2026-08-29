@@ -1,0 +1,6 @@
+for (Object o : objects) {
+    if (o instanceof Vehicle) {
+        vehicles++;
+    }
+}
+System.out.println(vehicles);

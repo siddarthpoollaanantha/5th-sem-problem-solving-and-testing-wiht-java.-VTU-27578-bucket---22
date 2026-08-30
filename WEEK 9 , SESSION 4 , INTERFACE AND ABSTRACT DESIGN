@@ -1,0 +1,122 @@
+import java.util.Scanner;
+
+// ---------- Payment interface ----------
+interface Payment {
+    void pay(double amount);
+    double getProcessingFee(double amount); // fee amount (not percentage)
+    String getName();
+}
+
+// ---------- Concrete Payment implementations ----------
+class CreditCardPayment implements Payment {
+    private static final double FEE_PERCENT = 2.0;
+
+    @Override
+    public void pay(double amount) {
+        // Payment execution logic (e.g., logging, gateway call) can go here
+    }
+
+    @Override
+    public double getProcessingFee(double amount) {
+        return amount * FEE_PERCENT / 100.0;
+    }
+
+    @Override
+    public String getName() {
+        return "CreditCard";
+    }
+}
+
+class UPIPayment implements Payment {
+    private static final double FEE_PERCENT = 1.0;
+
+    @Override
+    public void pay(double amount) {
+    }
+
+    @Override
+    public double getProcessingFee(double amount) {
+        return amount * FEE_PERCENT / 100.0;
+    }
+
+    @Override
+    public String getName() {
+        return "UPI";
+    }
+}
+
+class NetBankingPayment implements Payment {
+    private static final double FEE_PERCENT = 1.5;
+
+    @Override
+    public void pay(double amount) {
+    }
+
+    @Override
+    public double getProcessingFee(double amount) {
+        return amount * FEE_PERCENT / 100.0;
+    }
+
+    @Override
+    public String getName() {
+        return "NetBanking";
+    }
+}
+
+// ---------- Abstract Processor ----------
+abstract class PaymentProcessor {
+    abstract double processPayment(Payment payment, double amount);
+}
+
+// ---------- Concrete Processor ----------
+// Notice: this class never needs to know fee percentages or payment types.
+// Adding a new Payment implementation requires NO change here.
+class OnlinePaymentProcessor extends PaymentProcessor {
+    @Override
+    double processPayment(Payment payment, double amount) {
+        double fee = payment.getProcessingFee(amount);
+        double finalAmount = amount + fee;
+        payment.pay(finalAmount);
+        return finalAmount;
+    }
+}
+
+// ---------- Main ----------
+public class Main {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        int n = Integer.parseInt(sc.nextLine().trim());
+
+        PaymentProcessor processor = new OnlinePaymentProcessor();
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < n; i++) {
+            String line = sc.nextLine().trim();
+            String[] parts = line.split("\\s+");
+
+            int type = Integer.parseInt(parts[0]);
+            double amount = Double.parseDouble(parts[1]);
+
+            Payment payment;
+            switch (type) {
+                case 1:
+                    payment = new CreditCardPayment();
+                    break;
+                case 2:
+                    payment = new UPIPayment();
+                    break;
+                case 3:
+                    payment = new NetBankingPayment();
+                    break;
+                default:
+                    continue;
+            }
+
+            double finalAmount = processor.processPayment(payment, amount);
+            sb.append(payment.getName()).append(" ")
+              .append(String.format("%.2f", finalAmount)).append("\n");
+        }
+
+        System.out.print(sb);
+    }
+}

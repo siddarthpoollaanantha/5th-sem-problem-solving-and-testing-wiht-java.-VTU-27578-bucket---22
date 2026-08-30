@@ -1,0 +1,15 @@
+public static List<Integer> gradingStudents(List<Integer> grades) {
+    List<Integer> result = new ArrayList<>();
+    for (int grade : grades) {
+        if (grade >= 38) {
+            int remainder = grade % 5;
+            int next = remainder == 0 ? grade : grade + (5 - remainder);
+            if (next - grade < 3) {
+                result.add(next);
+                continue;
+            }
+        }
+        result.add(grade);
+    }
+    return result;
+}

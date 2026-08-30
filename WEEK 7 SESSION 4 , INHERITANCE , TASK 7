@@ -1,0 +1,15 @@
+class Rectangle {
+    protected int width;
+    protected int height;
+
+    void setWidth(int width)   { this.width = width; }
+    void setHeight(int height) { this.height = height; }
+    int getArea() { return width * height; }
+}
+
+class Square extends Rectangle {
+    void setSide(int side) {
+        this.width = side;
+        this.height = side;
+    }
+}

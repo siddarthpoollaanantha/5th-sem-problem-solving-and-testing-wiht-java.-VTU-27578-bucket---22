@@ -1,0 +1,14 @@
+class MyClass {
+    private int luckyNumber;
+    private static MyClass instance = null;
+
+    private MyClass() {}
+
+    static MyClass getInstance() {
+        if (instance == null) instance = new MyClass();
+        return instance;
+    }
+
+    int getLuckyNumber() { return luckyNumber; }
+    void setLuckyNumber(int luckyNumber) { this.luckyNumber = luckyNumber; }
+}

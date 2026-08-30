@@ -1,0 +1,24 @@
+class Node<E> implements Iterable<E> {
+    E data;
+    Node<E> next;
+
+    Node(E e) {
+        data = e;
+        next = null;
+    }
+
+    public Iterator<E> iterator() {
+        return new NodeIterator<>(this);
+    }
+
+    private class NodeIterator<T> implements Iterator<T> {
+        Node<T> current;
+        NodeIterator(Node<T> node) { current = (Node<T>) node; }
+        public boolean hasNext() { return current != null; }
+        public T next() {
+            T val = current.data;
+            current = current.next;
+            return val;
+        }
+    }
+}

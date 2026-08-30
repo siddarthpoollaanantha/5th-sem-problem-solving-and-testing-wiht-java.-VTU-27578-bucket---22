@@ -1,0 +1,20 @@
+class Student extends Person {
+    private int[] testScores;
+
+    Student(String name, int age, int[] testScores) {
+        super(name, age);
+        this.testScores = testScores;
+    }
+
+    @Override
+    void printPerson() {
+        super.printPerson();
+        System.out.println("\nMarks obtained in different subjects are:");
+        for (int score : testScores) {
+            System.out.println(score);
+        }
+        int sum = 0;
+        for (int score : testScores) sum += score;
+        System.out.print("Average marks are: " + (sum / testScores.length));
+    }
+}

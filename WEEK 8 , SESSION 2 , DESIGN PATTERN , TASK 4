@@ -1,0 +1,38 @@
+class Triangle implements Shape {
+    private int side1, side2, side3;
+    Triangle(int side1, int side2, int side3) {
+        this.side1 = side1; this.side2 = side2; this.side3 = side3;
+    }
+    int getSide1() { return side1; }
+    int getSide2() { return side2; }
+    int getSide3() { return side3; }
+    public void accept(Vistor vistor) { vistor.visit(this); }
+}
+
+class Square implements Shape {
+    private int side;
+    Square(int side) { this.side = side; }
+    int getSide() { return side; }
+    public void accept(Vistor vistor) { vistor.visit(this); }
+}
+
+class Circle implements Shape {
+    private int radius;
+    Circle(int radius) { this.radius = radius; }
+    int getRadius() { return radius; }
+    public void accept(Vistor vistor) { vistor.visit(this); }
+}
+
+class AreaVisitor implements Vistor {
+    public void visit(Square square) {
+        System.out.println((square.getSide() * square.getSide()) + ".0");
+    }
+    public void visit(Triangle triangle) {
+        double s = (triangle.getSide1() + triangle.getSide2() + triangle.getSide3()) / 2.0;
+        double area = Math.sqrt(s * (s - triangle.getSide1()) * (s - triangle.getSide2()) * (s - triangle.getSide3()));
+        System.out.println(area);
+    }
+    public void visit(Circle circle) {
+        System.out.println(Math.PI * circle.getRadius() * circle.getRadius());
+    }
+}

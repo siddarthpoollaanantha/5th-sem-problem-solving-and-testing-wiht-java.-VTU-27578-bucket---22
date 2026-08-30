@@ -1,0 +1,21 @@
+class Bird extends Animal {
+    void fly() {
+        System.out.println("I am flying");
+    }
+
+    @Override
+    void run() {
+        System.out.println("I am running");
+    }
+}
+
+class Fish extends Animal {
+    void swim() {
+        System.out.println("I am swimming");
+    }
+
+    @Override
+    void run() {
+        System.out.println("I am running");
+    }
+}

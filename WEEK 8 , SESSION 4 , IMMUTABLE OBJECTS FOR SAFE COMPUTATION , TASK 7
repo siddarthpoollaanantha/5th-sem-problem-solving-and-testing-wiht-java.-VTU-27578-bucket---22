@@ -1,0 +1,23 @@
+import java.util.*;
+
+public class Solution {
+    public static void main(String[] args) {
+        Scanner scan = new Scanner(System.in);
+        int n = scan.nextInt();
+        HashMap<String, Integer> subs = new HashMap<>();
+
+        for (int i = 0; i < n; i++) {
+            int c = scan.nextInt();
+            HashSet<String> unique = new HashSet<>();
+            for (int j = 0; j < c; j++) unique.add(scan.next());
+            for (String name : unique) subs.put(name, subs.getOrDefault(name, 0) + 1);
+        }
+
+        int total = subs.size();
+        int sumSubs = 0;
+        for (int v : subs.values()) sumSubs += v;
+
+        System.out.println(total);
+        System.out.printf("%.3f%n", (double) sumSubs / total);
+    }
+}

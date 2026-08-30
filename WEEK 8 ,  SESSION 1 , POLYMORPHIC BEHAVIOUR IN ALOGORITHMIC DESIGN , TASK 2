@@ -1,0 +1,6 @@
+class Subtractor extends Adder {
+    @Override
+    public int add(int a, int b) {
+        return super.add(a, -b);
+    }
+}

@@ -1,0 +1,19 @@
+interface Food {
+    String taste();
+}
+
+class Sweet implements Food {
+    public String taste() { return "sweet"; }
+}
+
+class Spicy implements Food {
+    public String taste() { return "spicy"; }
+}
+
+class FoodFactory {
+    public Food getFood(String flavor) {
+        if (flavor.equals("sweet")) return new Sweet();
+        else if (flavor.equals("spicy")) return new Spicy();
+        return null;
+    }
+}
